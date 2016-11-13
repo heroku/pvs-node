@@ -53,6 +53,13 @@ heroku config:set METAMIND_MODEL_ID=$modelId
 echo 'METAMIND_TOKEN=$jwt_token' > .env
 ```
 
+### Dependencies
+
+```bash
+npm install
+npm install --prefix react-ui
+```
+
 ### Run the Node server
 
 ```bash
@@ -64,5 +71,5 @@ heroku local
 React app with hot-reloading via [create-react-app](https://github.com/facebookincubator/create-react-app) is served from `react-ui/`; automatically proxies backend requests to the local Node server.
 
 ```bash
-npm run start-ui
+npm start --prefix react-ui
 ```

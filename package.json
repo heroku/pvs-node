@@ -8,8 +8,6 @@
   "main": "index.js",
   "scripts": {
     "start": "node lib/run",
-    "start-ui": "npm start --prefix react-ui",
-    "build": "npm run build --prefix react-ui",
     "postinstall": "if [ \"$NODE_ENV\" = production ]; then cd react-ui/ && npm install --only=dev && npm install && npm run build; fi"
   },
   "cacheDirectories": [
