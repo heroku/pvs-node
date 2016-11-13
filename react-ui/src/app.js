@@ -7,13 +7,40 @@ class App extends Component {
 
   state = {
     files: [],
+    /* Example `uploadResponse`:
+      {
+        "probabilities": [
+          {
+            "label": "digital clock",
+            "probability": 0.20473432540893555
+          },
+          {
+            "label": "odometer, hodometer, mileometer, milometer",
+            "probability": 0.12954171001911163
+          },
+          {
+            "label": "laptop, laptop computer",
+            "probability": 0.07063886523246765
+          },
+          {
+            "label": "cash machine, cash dispenser, automated teller machine, automatic teller machine, automated teller, automatic teller, ATM",
+            "probability": 0.05539492145180702
+          },
+          {
+            "label": "iPod",
+            "probability": 0.04827757552266121
+          }
+        ],
+        "object": "predictresponse"
+      }
+    */
     uploadResponse: null
   }
 
   render() {
     const file = this.state.files[0];
     const uploadResponse = this.state.uploadResponse;
-    
+
     return (
       <div className="app">    
 
@@ -56,7 +83,7 @@ class App extends Component {
       console.log('file-upload error', err);
       console.log('file-upload response', res);
       this.setState({
-        uploadResponse: JSON.parse(res.body)
+        uploadResponse: JSON.parse(res.text)
       });
     });
 
