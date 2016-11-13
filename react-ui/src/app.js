@@ -7,6 +7,7 @@ class App extends Component {
 
   state = {
     files: [],
+    isProcessing: false,
     /* Example `uploadResponse`:
       {
         "probabilities": [
@@ -40,6 +41,7 @@ class App extends Component {
   render() {
     const file = this.state.files[0];
     const uploadResponse = this.state.uploadResponse;
+    const isProcessing = this.state.isProcessing;
 
     return (
       <div className="app">    
@@ -50,6 +52,10 @@ class App extends Component {
           onDrop={this.onDrop}>
           <div>Drop image here or tap to upload</div>
         </Dropzone>
+
+        {isProcessing
+          ? <p>Processing…</p>
+          : null}
 
         {file != null
           ? <img
@@ -70,17 +76,24 @@ class App extends Component {
     console.log('onDrop this: ', this);
     console.log('Accepted files: ', acceptedFiles);
     console.log('Rejected files: ', rejectedFiles);
-    this.setState({
-      files: acceptedFiles
-    });
+    if (acceptedFiles.length) {
+      this.setState({
+        isProcessing: true,
+        files: acceptedFiles
+      }); 
+    }
 
     var req = superagent.post('/file-upload');
     acceptedFiles.forEach((file)=> {
       // Backend expects 'file' reference
       req.attach('file', file, file.name);
     });
-    req.end((err,res) => {  
-      console.log('file-upload error', err);
+    req.end((err,res) => {
+      this.setState({ isProcessing: false });
+      if (err) {
+        console.log('file-upload error', err);
+        return;
+      }
       console.log('file-upload response', res);
       this.setState({
         uploadResponse: JSON.parse(res.text)
