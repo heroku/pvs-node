@@ -10,8 +10,12 @@
     "start": "node lib/run",
     "start-ui": "npm start --prefix react-ui",
     "build": "npm run build --prefix react-ui",
-    "postinstall": "if [ \"$NODE_ENV\" = production ]; then npm run build; fi"
+    "postinstall": "if [ \"$NODE_ENV\" = production ]; then cd react-ui/ && npm install --only=dev && npm install && npm run build; fi"
   },
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
   "dependencies": {
     "cloudinary": "^1.4.4",
     "connect-multiparty": "^2.0.0",
