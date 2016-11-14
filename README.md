@@ -73,3 +73,9 @@ React app with hot-reloading via [create-react-app](https://github.com/facebooki
 ```bash
 npm start --prefix react-ui
 ```
+
+…and in a separate terminal, start the API server:
+
+```bash
+heroku local
+```
