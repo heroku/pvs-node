@@ -6,10 +6,11 @@
     "react-scripts": "0.7.0"
   },
   "dependencies": {
+    "classnames": "2.2.5",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-dropzone": "3.7.3",
-    "superagent": "^2.3.0"
+    "superagent": "2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

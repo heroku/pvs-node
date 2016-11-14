@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
 import superagent from 'superagent';
+import classNames from 'classnames';
 import './app.css';
+import UploadTarget from './upload-target';
 
 class App extends Component {
 
   state = {
     files: [],
     isProcessing: false,
+    uploadError: null,
     /* Example `uploadResponse`:
       {
         "probabilities": [
@@ -40,6 +43,7 @@ class App extends Component {
 
   render() {
     const file = this.state.files[0];
+    const uploadError = this.state.uploadError;
     const uploadResponse = this.state.uploadResponse;
     const isProcessing = this.state.isProcessing;
 
@@ -49,19 +53,35 @@ class App extends Component {
         <Dropzone
           accept={'image/png, image/jpeg'}
           multiple={false}
-          onDrop={this.onDrop}>
-          <div>Drop image here or tap to upload</div>
+          onDrop={this.onDrop}
+          style={{}}
+          className={classNames(
+            'dropzone',
+            file != null ? 'dropzone-dropped' : null
+          )}
+          activeClassName="dropzone-active"
+          rejectClassName="dropzone-reject">
+          <UploadTarget/>
         </Dropzone>
 
-        {isProcessing
-          ? <p>Processing…</p>
-          : null}
+        <div className={classNames(
+            'status-message',
+            isProcessing || uploadError ? 'status-message-visible' : null)}>
+          <p>{ uploadError
+            ? uploadError
+            : isProcessing
+              ? 'Processing…' 
+              : null }</p>
+        </div>
 
-        {file != null
-          ? <img
-              alt="file-preview"
-              src={file.preview}/>
-          : null}
+        
+        <div className={classNames(
+            'image-preview',
+            file != null ? 'image-preview-visible' : null)}>
+          <img
+            alt="upload preview"
+            src={file && file.preview}/>
+        </div>
 
         {uploadResponse != null
           ? <pre>
@@ -73,33 +93,30 @@ class App extends Component {
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    console.log('onDrop this: ', this);
-    console.log('Accepted files: ', acceptedFiles);
-    console.log('Rejected files: ', rejectedFiles);
     if (acceptedFiles.length) {
       this.setState({
         isProcessing: true,
-        files: acceptedFiles
-      }); 
-    }
-
-    var req = superagent.post('/file-upload');
-    acceptedFiles.forEach((file)=> {
-      // Backend expects 'file' reference
-      req.attach('file', file, file.name);
-    });
-    req.end((err,res) => {
-      this.setState({ isProcessing: false });
-      if (err) {
-        console.log('file-upload error', err);
-        return;
-      }
-      console.log('file-upload response', res);
-      this.setState({
-        uploadResponse: JSON.parse(res.text)
+        files: acceptedFiles,
+        uploadError: null,
+        uploadResponse: null
       });
-    });
 
+      var req = superagent.post('/file-upload');
+      acceptedFiles.forEach((file)=> {
+        // Backend expects 'file' reference
+        req.attach('file', file, file.name);
+      });
+      req.end((err,res) => {
+        this.setState({ isProcessing: false });
+        if (err) {
+          console.log('file-upload error', err);
+          this.setState({ uploadError: err.message });
+          return;
+        }
+        console.log('file-upload response', res);
+        this.setState({ uploadResponse: JSON.parse(res.text) });
+      });
+    }
   }
 }
 

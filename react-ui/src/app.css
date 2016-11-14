@@ -1,24 +1,52 @@
+body {
+  background-color: #333;
+  color: #fff;
+}
+
 .app {
   text-align: center;
 }
 
-.app-logo {
-  animation: app-logo-spin infinite 20s linear;
-  height: 80px;
+.app .dropzone {
+  margin: 2rem 2rem 0 2rem;
 }
 
-.app-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.app .status-message {
+  margin: 2rem;
+  border-radius: 1rem;
+  padding: 0.1rem;
+  background-color: #000;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
 }
 
-.app-intro {
-  font-size: large;
+.app .status-message-visible {
+  opacity: 1;
 }
 
-@keyframes app-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.app .image-preview {
+  margin: 2rem 2rem 2rem 2rem;
+  transition: max-height 2s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+  color: #fff;
+  background-color: #000;
+  border-radius: 1rem;
+}
+.app .image-preview img {
+  max-width: 100%;
+}
+
+.app .image-preview-visible {
+  max-height: 500px;
+}
+
+.app pre {
+  text-align: left;
+  margin: 2rem;
+  color: #fff;
+  background-color: #000;
+  padding: 1rem;
+  border-radius: 1rem;
+  overflow: scroll;
 }
