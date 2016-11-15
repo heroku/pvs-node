@@ -10,6 +10,7 @@
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-dropzone": "3.7.3",
+    "react-motion": "^0.4.5",
     "superagent": "2.3.0"
   },
   "scripts": {

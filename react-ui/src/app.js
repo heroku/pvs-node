@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
+import { StaggeredMotion, spring } from 'react-motion';
 import superagent from 'superagent';
 import classNames from 'classnames';
 import './app.css';
@@ -14,6 +15,18 @@ class App extends Component {
     /* Example `uploadResponse`:
       {
         "probabilities": [
+          {
+            "label": "Heroku",
+            "probability": 0.99
+          },
+          {
+            "label": "infographic",
+            "probability": 0.85
+          },
+          {
+            "label": "street sign",
+            "probability": 0.65
+          },
           {
             "label": "digital clock",
             "probability": 0.20473432540893555
@@ -68,7 +81,8 @@ class App extends Component {
 
         <div className={classNames(
             'status-message',
-            isProcessing || uploadError ? 'status-message-visible' : null)}>
+            (isProcessing || uploadError) ? 'status-message-visible' : null,
+            uploadError ? 'status-message-error' : null)}>
           <p>{ uploadError
             ? uploadError
             : isProcessing
@@ -82,7 +96,8 @@ class App extends Component {
             file != null ? 'image-preview-visible' : null)}
         ><img
             alt="upload preview"
-            src={file && file.preview}/></div>
+            src={file && file.preview}
+            style={{ display: 'block' }}/></div>
 
         {this.renderPredictions(predictions)}
       </div>
@@ -117,27 +132,48 @@ class App extends Component {
   }
 
   renderPredictions = (predictions) => {
-    return predictions.map( p => {
-      let labels = p.label.split(/,\s*/)
-      return (
-        <div 
-          className='prediction'
-          style={{
-            opacity: p.probability,
-            margin: '1rem 2rem',
-            padding: '0.1rem',
-            color: '#fff',
-            background: '#000',
-            borderRadius: '1rem'
-          }}>
-          <h2>{labels[0]}</h2>
-          {labels[1] != null
-            ? <p>{labels.slice(1, labels.length).join(', ')}</p>
-            : null}
-          <h3>{Math.round(p.probability * 100)}% probability</h3>
+    if (predictions == null || predictions.length === 0) {
+      return;
+    }
+    const defaultStyles = predictions.map( p => ({maxHeight: 0}));
+    return (<StaggeredMotion
+      defaultStyles={defaultStyles}
+      styles={prevInterpolatedStyles => 
+        prevInterpolatedStyles.map((_, i) =>
+          i === 0
+            ? {maxHeight: spring(100)}
+            : {maxHeight: spring(prevInterpolatedStyles[i - 1].maxHeight)}
+        )
+      }>
+      {interpolatingStyles =>
+        <div>
+          {interpolatingStyles.map((style, i) => {
+            const prediction = predictions[i];
+            if (prediction == null) {
+              return null;
+            }
+            const probability = prediction.probability;
+            const percent = Math.round(probability * 100);
+            const blackLevel = 22 - Math.max(Math.sqrt(probability * 150), 0);
+            const whiteLevel = 100 - blackLevel * 1.6;
+            const labels = prediction.label.split(/,\s*/)
+            return (<div 
+              className='prediction'
+              key={`prediction-${i}`}
+              style={Object.assign(style, {
+                color: `rgb(${whiteLevel}%,${whiteLevel}%,${whiteLevel}%)`,
+                backgroundColor: `rgb(${blackLevel}%,${blackLevel}%,${blackLevel}%)`
+              })}>
+              <h2>{labels[0]} <span className="probability" title="Probability">{percent}%</span></h2>
+              {labels[1] != null
+                ? <p className="alt-labels">{labels.slice(1, labels.length).join(', ')}</p>
+                : null}
+              
+            </div>);
+          })}
         </div>
-      )
-    })
+      }
+    </StaggeredMotion>);
   }
 }
 

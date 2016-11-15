@@ -10,22 +10,35 @@ h2, h3, p {
 .app {
   text-align: center;
 }
+  @media (min-width: 600px) {
+    .app {
+      margin-left: 17vw;
+      margin-right: 17vw;
+    }
+  }
 
 .app .dropzone {
   margin: 2rem 2rem 0 2rem;
 }
 
 .app .status-message {
+  height: 2rem;
+  line-height: 1.8rem;
   margin: 2rem;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
   padding: 0.1rem;
-  background-color: #000;
+  background-color: #222;
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
 }
 
 .app .status-message-visible {
   opacity: 1;
+}
+
+.app .status-message-error {
+  background-color: #600;
+  color: #fcc;
 }
 
 .app .image-preview {
@@ -35,7 +48,7 @@ h2, h3, p {
   overflow: hidden;
   color: #fff;
   background-color: #000;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
 }
 .app .image-preview img {
   width: 100%;
@@ -46,9 +59,20 @@ h2, h3, p {
 }
 
 .app .prediction {
+  overflow: hidden;
   margin: 1rem 2rem;
-  padding: 0.1rem;
+  padding: 0.1rem 1rem;
   color: #fff;
   background: #000;
-  border-radius: 1rem;
+  border-radius: 0.8rem;
+  text-align: left;
+}
+
+.app .prediction .probability {
+  float: right;
+  text-align: 'right';
+}
+
+.app .prediction .alt-labels {
+  font-size: 0.8rem;
 }
