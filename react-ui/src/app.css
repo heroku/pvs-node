@@ -3,6 +3,10 @@ body {
   color: #fff;
 }
 
+h2, h3, p {
+  margin: 0.3rem;
+}
+
 .app {
   text-align: center;
 }
@@ -49,4 +53,12 @@ body {
   padding: 1rem;
   border-radius: 1rem;
   overflow: scroll;
+}
+
+.app prediction {
+  margin: 1rem 2rem;
+  padding: 0.1rem;
+  color: #fff;
+  background: #000;
+  border-radius: 1rem;
 }

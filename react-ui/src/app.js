@@ -44,7 +44,6 @@ class App extends Component {
   render() {
     const file = this.state.files[0];
     const uploadError = this.state.uploadError;
-    const uploadResponse = this.state.uploadResponse;
     const isProcessing = this.state.isProcessing;
 
     return (
@@ -83,11 +82,7 @@ class App extends Component {
             src={file && file.preview}/>
         </div>
 
-        {uploadResponse != null
-          ? <pre>
-              {JSON.stringify(uploadResponse, null, 2)}
-            </pre>
-          : null}
+        {this.renderPredictions()}
       </div>
     );
   }
@@ -117,6 +112,32 @@ class App extends Component {
         this.setState({ uploadResponse: JSON.parse(res.text) });
       });
     }
+  }
+
+  renderPredictions = () => {
+    let response = this.state.uploadResponse;
+    let predictions = (response && response.probabilities) || [];
+    return predictions.map( p => {
+      let labels = p.label.split(/,\s*/)
+      return (
+        <div 
+          className='prediction'
+          style={{
+            opacity: p.probability,
+            margin: '1rem 2rem',
+            padding: '0.1rem',
+            color: '#fff',
+            background: '#000',
+            borderRadius: '1rem'
+          }}>
+          <h2>{labels[0]}</h2>
+          {labels[1] != null
+            ? <p>{labels.slice(1, labels.length).join(', ')}</p>
+            : null}
+          <h3>{Math.round(p.probability * 100)}% probability</h3>
+        </div>
+      )
+    })
   }
 }
 
