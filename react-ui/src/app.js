@@ -46,6 +46,9 @@ class App extends Component {
     const uploadError = this.state.uploadError;
     const isProcessing = this.state.isProcessing;
 
+    const response = this.state.uploadResponse;
+    const predictions = (response && response.probabilities) || [];
+
     return (
       <div className="app">    
 
@@ -76,13 +79,12 @@ class App extends Component {
         
         <div className={classNames(
             'image-preview',
-            file != null ? 'image-preview-visible' : null)}>
-          <img
+            file != null ? 'image-preview-visible' : null)}
+        ><img
             alt="upload preview"
-            src={file && file.preview}/>
-        </div>
+            src={file && file.preview}/></div>
 
-        {this.renderPredictions()}
+        {this.renderPredictions(predictions)}
       </div>
     );
   }
@@ -114,9 +116,7 @@ class App extends Component {
     }
   }
 
-  renderPredictions = () => {
-    let response = this.state.uploadResponse;
-    let predictions = (response && response.probabilities) || [];
+  renderPredictions = (predictions) => {
     return predictions.map( p => {
       let labels = p.label.split(/,\s*/)
       return (

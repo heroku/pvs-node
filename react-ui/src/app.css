@@ -38,24 +38,14 @@ h2, h3, p {
   border-radius: 1rem;
 }
 .app .image-preview img {
-  max-width: 100%;
+  width: 100%;
 }
 
 .app .image-preview-visible {
   max-height: 500px;
 }
 
-.app pre {
-  text-align: left;
-  margin: 2rem;
-  color: #fff;
-  background-color: #000;
-  padding: 1rem;
-  border-radius: 1rem;
-  overflow: scroll;
-}
-
-.app prediction {
+.app .prediction {
   margin: 1rem 2rem;
   padding: 0.1rem;
   color: #fff;
