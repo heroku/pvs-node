@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import superagent from 'superagent';
 import classNames from 'classnames';
 import './app.css';
+import InfoLink from './info-link';
 import UploadTarget from './upload-target';
 import Predictions from './predictions';
 
@@ -63,44 +64,58 @@ class App extends Component {
     const predictions = (response && response.probabilities) || [];
 
     return (
-      <div className="app">    
-
-        <Dropzone
-          accept={'image/png, image/jpeg'}
-          multiple={false}
-          onDrop={this.onDrop}
-          style={{}}
-          className={classNames(
-            'dropzone',
-            file != null ? 'dropzone-dropped' : null
-          )}
-          activeClassName="dropzone-active"
-          rejectClassName="dropzone-reject">
-          <UploadTarget/>
-        </Dropzone>
-
-        <div className={classNames(
-            'status-message',
-            (isProcessing || uploadError) ? 'status-message-visible' : null,
-            uploadError ? 'status-message-error' : null)}>
-          <p>{ uploadError
-            ? uploadError
-            : isProcessing
-              ? 'Processing…' 
-              : null }</p>
+      <div>
+        <div className="title">
+          <h1>Metamind Image Identifier
+            <InfoLink
+              style={{
+                float: 'right',
+                height: '1.1rem',
+                width: '1.1rem'
+              }} 
+              pathStyle={{ 
+                fill: '#999'
+              }}/></h1>
         </div>
+        <div className="app">
 
-        
-        <div className={classNames(
-            'image-preview',
-            file != null ? 'image-preview-visible' : null)}
-        ><img
-            alt="upload preview"
-            src={file && file.preview}
-            style={{ display: 'block' }}/></div>
+          <Dropzone
+            accept={'image/png, image/jpeg'}
+            multiple={false}
+            onDrop={this.onDrop}
+            style={{}}
+            className={classNames(
+              'dropzone',
+              file != null ? 'dropzone-dropped' : null
+            )}
+            activeClassName="dropzone-active"
+            rejectClassName="dropzone-reject">
+            <UploadTarget/>
+          </Dropzone>
 
-        <Predictions contents={predictions}/>
-        
+          <div className={classNames(
+              'status-message',
+              (isProcessing || uploadError) ? 'status-message-visible' : null,
+              uploadError ? 'status-message-error' : null)}>
+            <p>{ uploadError
+              ? uploadError
+              : isProcessing
+                ? 'Processing…' 
+                : null }</p>
+          </div>
+
+          
+          <div className={classNames(
+              'image-preview',
+              file != null ? 'image-preview-visible' : null)}
+          ><img
+              alt="upload preview"
+              src={file && file.preview}
+              style={{ display: 'block' }}/></div>
+
+          <Predictions contents={predictions}/>
+
+        </div>
       </div>
     );
   }
