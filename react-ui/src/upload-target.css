@@ -16,9 +16,10 @@
 
 .upload-target .prompt {
   position: absolute;
-  bottom: 6%;
-  text-align: center;
-  width: 100%;
+  bottom: 8%;
+  padding-left: 8%;
+  text-align: left;
+  width: 25%;
   color: #999;
   transition:
     opacity 0.2s ease-in-out,

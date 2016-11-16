@@ -18,15 +18,16 @@ h2, h3, p {
   }
 
 .app .dropzone {
-  margin: 2rem 2rem 0 2rem;
+  margin: 2rem 2rem 1rem 2rem;
 }
 
 .app .status-message {
+  text-align: left;
   height: 2rem;
   line-height: 1.8rem;
-  margin: 2rem;
+  margin: 0 2rem;
   border-radius: 0.8rem;
-  padding: 0.1rem;
+  padding: 0.1rem 1rem;
   background-color: #222;
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
@@ -42,7 +43,7 @@ h2, h3, p {
 }
 
 .app .image-preview {
-  margin: 2rem 2rem 2rem 2rem;
+  margin: 1rem 2rem 2rem 2rem;
   transition: max-height 2s ease-in-out;
   max-height: 0;
   overflow: hidden;
@@ -56,23 +57,4 @@ h2, h3, p {
 
 .app .image-preview-visible {
   max-height: 500px;
-}
-
-.app .prediction {
-  overflow: hidden;
-  margin: 1rem 2rem;
-  padding: 0.1rem 1rem;
-  color: #fff;
-  background: #000;
-  border-radius: 0.8rem;
-  text-align: left;
-}
-
-.app .prediction .probability {
-  float: right;
-  text-align: 'right';
-}
-
-.app .prediction .alt-labels {
-  font-size: 0.8rem;
 }
