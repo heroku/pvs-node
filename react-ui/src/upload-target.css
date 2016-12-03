@@ -8,7 +8,7 @@
 }
 
 .upload-target svg {
-  max-height: 85vw;
+  max-height: 40rem;
   transition:
     max-height 2s ease-in-out,
     transform 2s ease-in-out;
@@ -16,17 +16,21 @@
 
 .upload-target .prompt {
   position: absolute;
-  bottom: 8%;
-  padding-left: 8%;
-  text-align: left;
-  width: 30%;
-  color: #999;
+  bottom: 15%;
+  padding-left: 30%;
+  text-align: center;
+  width: 41%;
+  color: #fff;
   transition:
     opacity 0.2s ease-in-out,
     transform 2s ease-in-out;
 }
 .upload-target .frame {
-  fill: #999;
+  fill: #fff;
+}
+
+.upload-target .poison-oak {
+  fill: #fff; 
 }
 
 .dropzone-active .upload-target .prompt,

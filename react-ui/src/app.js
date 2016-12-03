@@ -66,7 +66,7 @@ class App extends Component {
     return (
       <div>
         <div className="title">
-          <h1>Metamind Image Identifier
+          <h1>Is This Poison Oak?
             <InfoLink
               style={{
                 float: 'right',
@@ -74,7 +74,7 @@ class App extends Component {
                 width: '1.1rem'
               }} 
               pathStyle={{ 
-                fill: '#999'
+                fill: '#fff'
               }}/></h1>
         </div>
         <div className="app">
@@ -105,15 +105,17 @@ class App extends Component {
           </div>
 
           
-          <div className={classNames(
-              'image-preview',
-              file != null ? 'image-preview-visible' : null)}
-          ><img
-              alt="upload preview"
-              src={file && file.preview}
-              style={{ display: 'block' }}/></div>
-
-          <Predictions contents={predictions}/>
+          <div className="result-wrapper">
+            <div className={classNames(
+                'image-preview',
+                file != null ? 'image-preview-visible' : null)}>
+              <img
+                alt="upload preview"
+                src={file && file.preview}
+                style={{ display: 'block' }}/>
+            </div>
+            <Predictions contents={predictions}/>
+          </div>
 
         </div>
       </div>

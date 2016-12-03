@@ -1,7 +1,9 @@
 body {
-  background-color: #333;
+  background-color: #4CAF50;
   color: #fff;
   margin: 0;
+  background-image:url("/1.jpg");
+  background-repeat:no-repeat;
 }
 
 h2, h3, p {
@@ -11,7 +13,9 @@ h2, h3, p {
 
 .title {
   margin: 0;
-  background-color: #222;
+  background: rgba(0, 0, 0, 0.71);
+  padding-top:10px;
+  padding-bottom:10px;
 }
 
 h1 {
@@ -19,11 +23,13 @@ h1 {
   padding: 0.5rem 1rem 0.3rem;
   margin: 0;
   font-size: 1rem;
-  color: #999;
+  color: #fff;
 }
 
 .app {
   text-align: center;
+  border-radius:10px;
+
 }
   @media (min-width: 600px) {
     .app {
@@ -55,6 +61,12 @@ h1 {
 .app .status-message-error {
   background-color: #600;
   color: #fcc;
+}
+
+.app .result-wrapper{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
 }
 
 .app .image-preview {
