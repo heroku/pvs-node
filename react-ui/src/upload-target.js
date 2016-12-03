@@ -70,7 +70,6 @@ class UploadTarget extends Component {
     z"/>
 </g>
 </svg>
-
     </div>);
   }
 

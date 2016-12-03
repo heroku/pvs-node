@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Dropzone from 'react-dropzone';
-import superagent from 'superagent';
 import classNames from 'classnames';
+import superagent from 'superagent';
+
 import './app.css';
-import InfoLink from './info-link';
-import UploadTarget from './upload-target';
+import Spinner from './spinner';
 import Predictions from './predictions';
+import UploadTarget from './upload-target';
 
 class App extends Component {
 
@@ -13,45 +14,6 @@ class App extends Component {
     files: [],
     isProcessing: false,
     uploadError: null,
-    /* Example `uploadResponse`:
-      {
-        "probabilities": [
-          {
-            "label": "Heroku",
-            "probability": 0.99
-          },
-          {
-            "label": "infographic",
-            "probability": 0.85
-          },
-          {
-            "label": "street sign",
-            "probability": 0.65
-          },
-          {
-            "label": "digital clock",
-            "probability": 0.20473432540893555
-          },
-          {
-            "label": "odometer, hodometer, mileometer, milometer",
-            "probability": 0.12954171001911163
-          },
-          {
-            "label": "laptop, laptop computer",
-            "probability": 0.07063886523246765
-          },
-          {
-            "label": "cash machine, cash dispenser, automated teller machine, automatic teller machine, automated teller, automatic teller, ATM",
-            "probability": 0.05539492145180702
-          },
-          {
-            "label": "iPod",
-            "probability": 0.04827757552266121
-          }
-        ],
-        "object": "predictresponse"
-      }
-    */
     uploadResponse: null
   }
 
@@ -59,7 +21,6 @@ class App extends Component {
     const file = this.state.files[0];
     const uploadError = this.state.uploadError;
     const isProcessing = this.state.isProcessing;
-
     const response = this.state.uploadResponse;
     const predictions = (response && response.probabilities) || [];
 
@@ -77,46 +38,63 @@ class App extends Component {
                 fill: '#fff'
               }}/></h1>
         </div>
-        <div className="app">
-
-          <Dropzone
+        <div className={classNames(
+          "app",
+          file != null ? "app-with-image" : null)}>
+          {response || isProcessing ? null : <Dropzone
             accept={'image/png, image/jpeg'}
             multiple={false}
             onDrop={this.onDrop}
             style={{}}
             className={classNames(
-              'dropzone',
+              'dropzone','initial-dropzone',
               file != null ? 'dropzone-dropped' : null
             )}
             activeClassName="dropzone-active"
             rejectClassName="dropzone-reject">
             <UploadTarget/>
-          </Dropzone>
-
-          <div className={classNames(
-              'status-message',
-              (isProcessing || uploadError) ? 'status-message-visible' : null,
-              uploadError ? 'status-message-error' : null)}>
-            <p>{ uploadError
-              ? uploadError
-              : isProcessing
-                ? 'Processing…' 
-                : null }</p>
-          </div>
+          </Dropzone>}
 
           
+          <Dropzone
+              accept={'image/png, image/jpeg'}
+              multiple={false}
+              onDrop={this.onDrop}
+              style={{}}
+              className={classNames(
+                'dropzone',
+                file != null ? 'dropzone-dropped' : null
+              )}
+              activeClassName="dropzone-active"
+              rejectClassName="dropzone-reject">
           <div className="result-wrapper">
-            <div className={classNames(
+              <div className={classNames(
                 'image-preview',
                 file != null ? 'image-preview-visible' : null)}>
-              <img
-                alt="upload preview"
-                src={file && file.preview}
-                style={{ display: 'block' }}/>
-            </div>
+              
+                <img src={file && file.preview} style={{ display: 'block' }}/>
+                {!response || isProcessing ? null : 
+                  <div className="prompt">Drop image here or tap to upload</div>
+                }
+                <div className="spinner-wrapper">
+                  {isProcessing
+                    ? <span><Spinner/><div className="spinner-text">Analyzing Image...</div></span>
+                    : null}
+                  {uploadError
+                    ? uploadError
+                    :null}
+                </div>
+              </div>
+            
             <Predictions contents={predictions}/>
           </div>
+          </Dropzone>
+        </div>
 
+        <div className="footer">
+          <a href="http://metamind.io/">metamind.io</a>
+          <a href="https://github.com/heroku/metamind-image-identifier" 
+             target="_blank">github</a>
         </div>
       </div>
     );
