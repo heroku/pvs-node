@@ -28,9 +28,8 @@ h2, h3, p {
 .title {
   margin: 0;
   background: rgba(0, 0, 0, 0.71);
-  padding-top:10px;
-  padding-bottom:10px;
-  margin: 0 2rem;
+  padding: 0 2rem;
+  font-family:"sfs-regular";
 }
 
 .title::after {
@@ -54,18 +53,17 @@ h1 {
 }
 
 .demo-text {
-  color:#07b;
+  color:#fff;
   font-family:"sfs-regular";
 }
 
 .app {
   text-align: center;
   border-radius:10px;
-  background-color:#07b;
   transition: background 2s ease-in-out;
 }
 .app-with-image{
-  background-color: #444;
+
 }
 
 .app .initial-dropzone {
@@ -130,7 +128,6 @@ h1 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  box-shadow: 1px 0px 11px -5px #777; 
 }
 
 .footer {

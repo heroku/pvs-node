@@ -1,9 +1,7 @@
 .upload-target {
   margin: 0px auto;
-  max-width: 350px;
   position: relative;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.65);
   border-radius: 0.25rem;
   transition: transform 2s ease-in-out,
               background .5s ease-in-out;
@@ -44,8 +42,8 @@
   fill: #fff; 
 }
 
-.dropzone-active .upload-target{
-   background:#0c0; 
+.dropzone-active .upload-target .frame {
+   fill:#0c0; 
 }
 .dropzone-active .upload-target .prompt {
   color:white;

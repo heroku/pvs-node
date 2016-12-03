@@ -27,16 +27,7 @@ class App extends Component {
     return (
       <div>
         <div className="title">
-          <h1>Is This Poison Oak?
-            <InfoLink
-              style={{
-                float: 'right',
-                height: '1.1rem',
-                width: '1.1rem'
-              }} 
-              pathStyle={{ 
-                fill: '#fff'
-              }}/></h1>
+          <h1>Is This Poison Oak?</h1>
         </div>
         <div className={classNames(
           "app",
@@ -89,12 +80,6 @@ class App extends Component {
             <Predictions contents={predictions}/>
           </div>
           </Dropzone>
-        </div>
-
-        <div className="footer">
-          <a href="http://metamind.io/">metamind.io</a>
-          <a href="https://github.com/heroku/metamind-image-identifier" 
-             target="_blank">github</a>
         </div>
       </div>
     );
