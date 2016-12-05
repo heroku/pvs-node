@@ -12,7 +12,7 @@
 }
 
 .upload-target svg {
-  max-height: 40rem;
+  max-height: 30rem;
   transition:
     max-height 2s ease-in-out,
     transform 2s ease-in-out;
