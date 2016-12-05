@@ -54,4 +54,5 @@ class Predictions extends Component {
   }
 }
 
+//39,174,96
 export default Predictions;
