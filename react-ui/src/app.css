@@ -102,7 +102,11 @@ h1 {
 
 .app .result-wrapper{
   display:flex;
-  flex-wrap:wrap;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background:rgba(0,0,0,0.85);
+  margin:1rem;
+  border-radius: 6px;
   justify-content: center;
 }
 
@@ -122,15 +126,6 @@ h1 {
 .app .image-preview-visible {
   display:block;
   margin: 2rem 2rem 2rem 2rem;
-}
-
-.result-wrapper{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  background:rgba(0,0,0,0.85);
-  margin:2rem;
-  border-radius: 6px;
 }
 
 .footer {
