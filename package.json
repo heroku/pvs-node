@@ -1,7 +1,7 @@
 {
   "name": "metamind-image-identifier",
   "version": "1.0.0",
-  "description": "Salesforce MetaMind Image Classification",
+  "description": "Is This Poison Oak?",
   "engines": {
     "node": "6.9.1"
   },
