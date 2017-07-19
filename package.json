@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Is This Poison Oak?",
   "engines": {
-    "node": "6.9.1"
+    "node": "6.11.x"
   },
   "main": "index.js",
   "scripts": {
